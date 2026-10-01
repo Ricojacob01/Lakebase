@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local infra notes (may contain real hostnames/endpoints — keep out of shared repo)
+infra/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build outputs (KEEP frontend/dist for deployment!)
+# frontend/dist/  <- do NOT exclude, it ships with the app
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Databricks
+.databricks/
+
+# OS
+.DS_Store

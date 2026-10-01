@@ -1,0 +1,39 @@
+command:
+  - "python"
+  - "-m"
+  - "uvicorn"
+  - "app:app"
+  - "--host"
+  - "0.0.0.0"
+  - "--port"
+  - "8000"
+
+env:
+  # Lakebase (Postgres OLTP): PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD are
+  # AUTO-INJECTED by the attached "database" (postgres) app resource.
+  # Do NOT map them via `valueFrom: database` — that injects the endpoint
+  # resource path into every var (e.g. PGPORT becomes a path, int() fails),
+  # which forces the app into demo mode.
+
+  # Foundation Model endpoint powering the agentic-capture screen (Agente tab).
+  # The agent parses NL messages and calls the registrar_venta tool on this model.
+  - name: SERVING_ENDPOINT
+    value: databricks-claude-sonnet-5-5
+
+  # SQL Warehouse connection (for Lakehouse analytics queries).
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "abacc2038735a065"
+
+  # Unity Catalog table (Delta) for Lakehouse queries (Autoescalado tab).
+  - name: UC_VENTAS_TABLE
+    value: "main.refrescos_latam.ventas"
+
+  # AI/BI dashboard embed URL (Dashboard tab).
+  # Empty by default; set from Databricks workspace when provisioning.
+  - name: AIBI_DASHBOARD_URL
+    value: "https://e2-demo-field-eng.cloud.databricks.com/embed/dashboardsv3/01f1bde42fe81ae3bbc697029543a406"
+
+  # Genie space embed URL (Dashboard tab).
+  # Empty by default; set from Databricks workspace when provisioning.
+  - name: GENIE_SPACE_URL
+    value: ""
